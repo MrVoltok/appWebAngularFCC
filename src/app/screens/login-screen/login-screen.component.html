@@ -1,0 +1,41 @@
+<section class="login">
+  <div class="wrapper">
+    <!-- SECCION IZQUIERDA CON LA IMAGEN DE FONDO Y LOS ICONOS -->
+    <div class="section-left">
+      <img src="/assets/img/Buap.png" alt="Logo-BUAP" class="logo-buap">
+      <img src="/assets/img/FCCBuap.png" alt="Logo-FCC" class="logo-fcc">
+    </div>
+    <!-- SECCION DERECHA CON LA CARD PARA INGRESO DE DATOS -->
+  <div class="section-right">
+    <div class="card">
+      <div class="card-body">
+        <h3 class="title">Incicio de Sesión</h3>
+        <div class="container-inputs">
+          <div class="pt-3 mb-3">
+            <input type="email" [(ngModel)]="username" id="email" class="form-control" placeholder="Correo electrónico">
+            <!-- <div class="invalid-feedback"></div> -->
+          </div>
+          <div class="pt-3 mb-3">
+            <div class="input-group input-group-merge">
+              <input type="{{type}}" [(ngModel)]="password" id="password" name="password_user" class="form-control pwd" (keyup.enter)="login()">
+              <div class="input-group-text" id="show-password" >
+                <i *ngIf="type == 'password'" class="bi bi-eye-fill show-pwd" (click)="showPassword()"></i>
+                <i *ngIf="type == 'text'" class="bi bi-eye-slash-fill show-pwd" (click)="showPassword()"></i>
+              </div>
+            </div>
+            <!-- <div class="invalid-feedback"></div> -->
+          </div>
+          <div class="mb-3">
+            <label for="checkbox-signin" class="form-check-label">Olvidé mi contraseña</label>
+          </div>
+          <div class="d-flex flex-column align-items-center mb-3 w-100">
+            <button type="submit" class="btn btn-primary" (click)="login()">Iniciar sesión</button>
+            <label for="checkbox-signin" class="form-check-label pt-3" (click)="registrar()">Registrarse</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+    
+</section>
