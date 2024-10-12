@@ -27,21 +27,19 @@ export class RegistroUsuariosScreenComponent implements OnInit {
   public radioChange(event: MatRadioChange) {
     if (event.value == "administrador") {
       this.isAdmin = true;
-      this.tipo_user = "adminsitrador";
+      this.tipo_user = "administrador"
       this.isAlumno = false;
       this.isMaestro = false;
-    }
-    else if (event.value = "alumno") {
+    } else if (event.value == "alumno") {
+      this.isAdmin = false;
       this.isAlumno = true;
-      this.tipo_user = "alumno";
-      this.isAdmin = false;
+      this.tipo_user = "alumno"
       this.isMaestro = false;
-    }
-    else if (event.value == "maestro") {
-      this.isMaestro = true;
-      this.tipo_user = "maestro";
-      this.isAlumno = false;
+    } else if (event.value == "maestro") {
       this.isAdmin = false;
+      this.isAlumno = false;
+      this.isMaestro = true;
+      this.tipo_user = "maestro"
     }
   }
 

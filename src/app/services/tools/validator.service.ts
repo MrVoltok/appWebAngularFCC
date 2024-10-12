@@ -23,6 +23,9 @@ export class ValidatorService {
     return input.match(regEx); // Invalid format
   }
   date(input: any) {
+    if (input instanceof Date) {
+      input = input.toISOString().slice(0, 10); // Convertir a formato 'YYYY-MM-DD'
+    }
     var regEx = /^\d{4}-\d{2}-\d{2}$/;
     if (!input.match(regEx)) return false;  // Invalid format
     var d = new Date(input);
@@ -62,5 +65,11 @@ export class ValidatorService {
     let pat = new RegExp('^([A-Za-zÑñáéíóúÁÉÍÓÚ ]+)$');
     console.log(pat.test(input), input);
     return pat.test(input);
+  }
+
+  arrayHasValues(input: any) {
+    if (input.length === 0) {
+      return false;
+    } else return true;
   }
 }
