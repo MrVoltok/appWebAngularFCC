@@ -1,7 +1,14 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ErrorsService } from '../tools/errors.service';
 import { ValidatorService } from '../tools/validator.service';
+import { environment } from 'src/assets/environments/environment';
+import { Observable } from 'rxjs';
+import { FacadeService } from '../facade.service';
+
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+}
 
 @Injectable({
   providedIn: 'root'
@@ -9,14 +16,15 @@ import { ValidatorService } from '../tools/validator.service';
 export class MaestrosService {
 
   constructor(
-    private htttp: HttpClient,
+    private http: HttpClient,
     private errorsService: ErrorsService,
     private validatorService: ValidatorService,
+    private facadeService: FacadeService
   ) { }
 
   public esquemaMatestro() {
     return {
-      'id': '',
+      'clave_maestro': '',
       'first_name': '',
       'last_name': '',
       'email': '',
@@ -37,8 +45,8 @@ export class MaestrosService {
     console.log('...');
     console.log(`materias: ${data["materias_json"]}`);
     let error: any = [];
-    if (!this.validatorService.required(data["id"])) {
-      error["id"] = this.errorsService.required;
+    if (!this.validatorService.required(data["clave_maestro"])) {
+      error["clave_maestro"] = this.errorsService.required;
     }
     if (!this.validatorService.required(data["first_name"])) {
       error["first_name"] = this.errorsService.required;
@@ -103,5 +111,33 @@ export class MaestrosService {
     }
     //Return arreglo
     return error;
+  }
+
+  public registrarMaestro(data: any): Observable<any> {
+    return this.http.post<any>(`${environment.url_api}/maestro/`, data, httpOptions);
+  }
+
+  public obtenerListaMaestros(): Observable<any> {
+    var token = this.facadeService.getSessionToken();
+    var headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    return this.http.get<any>(`${environment.url_api}/lista-maestros/`, { headers: headers });
+  }
+
+  //Obtener un solo maestro dependiendo su ID
+  public getMaestroByID(idUser: Number) {
+    return this.http.get<any>(`${environment.url_api}/maestro/?id=${idUser}`, httpOptions);
+  }
+  //Servicio para actualizar un usuario
+  public editarMaestro(data: any): Observable<any> {
+    var token = this.facadeService.getSessionToken();
+    var headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    return this.http.put<any>(`${environment.url_api}/maestros-edit/`, data, { headers: headers });
+  }
+
+  //Eliminar Maestro
+  public eliminarMaestro(idUser: number): Observable<any> {
+    var token = this.facadeService.getSessionToken();
+    var headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    return this.http.delete<any>(`${environment.url_api}/maestros-edit/?id=${idUser}`, { headers: headers });
   }
 }

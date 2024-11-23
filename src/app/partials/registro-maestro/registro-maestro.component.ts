@@ -1,5 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MaestrosService } from 'src/app/services/maestros/maestros.service';
+import { FacadeService } from 'src/app/services/facade.service';
+import { Location } from '@angular/common';
 declare var $: any;
 
 @Component({
@@ -16,10 +19,12 @@ export class RegistroMaestroComponent implements OnInit {
   public hide_2: boolean = false;
   public inputType_1: string = 'text';
   public inputType_2: string = 'text';
+  public token: string = '';
 
   public maestro: any = {};
   public errors: any = {};
   public editar: boolean = false;
+  public idUser: Number = 0;
 
   //Para el select
   public areas: any[] = [
@@ -45,13 +50,29 @@ export class RegistroMaestroComponent implements OnInit {
   ];
 
   constructor(
-    private maestroService: MaestrosService
+    private maestroService: MaestrosService,
+    private router: Router,
+    private location: Location,
+    public activatedRoute: ActivatedRoute,
+    private facadeService: FacadeService
   ) { }
 
   ngOnInit(): void {
-    this.maestro = this.maestroService.esquemaMatestro();
-
-    console.log(this.maestro);
+    //El primer if valida si existe un parámetro en la URL
+    if (this.activatedRoute.snapshot.params['id'] != undefined) {
+      this.editar = true;
+      //Asignamos a nuestra variable global el valor del ID que viene por la URL
+      this.idUser = this.activatedRoute.snapshot.params['id'];
+      console.log("ID User: ", this.idUser);
+      //Al iniciar la vista asignamos los datos del user
+      this.maestro = this.datos_user;
+    } else {
+      this.maestro = this.maestroService.esquemaMatestro();
+      this.maestro.rol = this.rol;
+      this.token = this.facadeService.getSessionToken();
+    }
+    //Imprimir datos en consola
+    console.log("Maestro: ", this.maestro);
   }
 
   public registrar() {
@@ -65,6 +86,23 @@ export class RegistroMaestroComponent implements OnInit {
     // Validar contraseña
     if (this.maestro.password === this.maestro.confirmar_password) {
       //Entra a registrar
+
+      this.maestroService.registrarMaestro(this.maestro).subscribe(
+        (response) => {
+          // Aquí va la ejecución del servicio si todo es correcto
+          alert("Maestro registrado correctamente");
+          console.log(`Maestro registrado: ${response}`);
+          if (this.token != "") {
+            this.router.navigate(["home"]);
+          } else {
+            this.router.navigate(["/"]);
+          }
+        },
+        (error) => {
+          //Aquí se ejecuta el error
+          alert("No se pudo registrar usuario");
+        }
+      )
     }
     else {
       alert("Las contraseñas no coinciden");
@@ -110,10 +148,48 @@ export class RegistroMaestroComponent implements OnInit {
     console.log("Array materias: ", this.maestro);
   }
   public revisarSeleccion(nombre: string) {
-    return false;
+    if (this.maestro.materias_json) {
+      var busqueda = this.maestro.materias_json.find((element) => element == nombre);
+      if (busqueda != undefined) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
   }
 
-  public regresar() { }
-  public actualizar() { }
+  public regresar() {
+    this.location.back();
+  }
+  public actualizar() {
+    //Validación
+    this.errors = [];
 
+    this.errors = this.maestroService.validarMaestro(this.maestro, this.editar);
+    if (!$.isEmptyObject(this.errors)) {
+      return false;
+    }
+    console.log("Pasó la validación");
+    this.maestroService.editarMaestro(this.maestro).subscribe(
+      (response) => {
+        alert("Maestro editado correctamente");
+        console.log("Maestro editado: ", response);
+        //Si se editó, entonces mandar al home
+        this.router.navigate(["home"]);
+      }, (error) => {
+        alert("No se pudo editar el maestro");
+      }
+    );
+  }
+
+
+  public changeFecha(event: any) {
+    console.log(event);
+    console.log(event.value.toISOString());
+
+    this.maestro.birthdate = event.value.toISOString().split("T")[0];
+    console.log("Fecha: ", this.maestro.birthdate);
+  }
 }

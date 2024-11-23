@@ -22,14 +22,24 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDialogModule } from '@angular/material/dialog';
 //Partials
 import { RegistroAdminComponent } from './partials/registro-admin/registro-admin.component';
 import { RegistroAlumnoComponent } from './partials/registro-alumno/registro-alumno.component';
 import { RegistroMaestroComponent } from './partials/registro-maestro/registro-maestro.component';
-import { MatNativeDateModule } from '@angular/material/core';
+
+import { NgChartsModule } from 'ng2-charts';
 
 //Para usar el mask
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
+import { HomeScreenComponent } from './screens/home-screen/home-screen.component';
+import { AlumnosScreenComponent } from './screens/alumnos-screen/alumnos-screen.component';
+import { MaestrosScreenComponent } from './screens/maestros-screen/maestros-screen.component';
+import { AdminScreenComponent } from './screens/admin-screen/admin-screen.component';
+import { GraficasScreenComponent } from './screens/graficas-screen/graficas-screen.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +49,12 @@ import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
     NavbarComponent,
     RegistroAdminComponent,
     RegistroAlumnoComponent,
-    RegistroMaestroComponent
+    RegistroMaestroComponent,
+    HomeScreenComponent,
+    AlumnosScreenComponent,
+    MaestrosScreenComponent,
+    AdminScreenComponent,
+    GraficasScreenComponent,
   ],
   imports: [
     BrowserModule,
@@ -58,6 +73,10 @@ import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
     MatSelectModule,
     MatCheckboxModule,
     NgxMaskDirective,
+    MatTableModule,
+    MatPaginatorModule,
+    MatDialogModule,
+    NgChartsModule
   ],
   providers: [
     provideNgxMask(),

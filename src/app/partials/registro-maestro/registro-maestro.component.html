@@ -10,9 +10,9 @@
       <!-- Aquí empiezan los campos del formulario -->
       <mat-form-field class="mat-input" appearance="outline">
         <mat-label>ID del trabajador</mat-label>
-        <input matInput [(ngModel)]="maestro.id" name="id" placeholder="Escribe id del trabajador">
+        <input matInput [(ngModel)]="maestro.clave_maestro" name="id" placeholder="Escribe id del trabajador">
       </mat-form-field>
-      <div *ngIf="errors.id" class="invalid-feedback">{{ errors.id }}</div>
+      <div *ngIf="errors.clave_maestro" class="invalid-feedback">{{ errors.clave_maestro }}</div>
 
       <mat-form-field class="mat-input" appearance="outline">
         <mat-label>Nombre</mat-label>
@@ -48,7 +48,7 @@
 
       <mat-form-field class="mat-input" appearance="outline">
         <mat-label>Fecha de nacimiento</mat-label>
-        <input matInput [(ngModel)]="maestro.birthdate"  [matDatepicker]="picker" placeholder="Escribe fecha de nacimiento">
+        <input matInput [(ngModel)]="maestro.birthdate" (dateChange)="changeFecha($event)"  [matDatepicker]="picker" placeholder="Escribe fecha de nacimiento">
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
@@ -60,9 +60,10 @@
       </mat-form-field>
       <div *ngIf="errors.telefono" class="invalid-feedback">{{ errors.telefono }}</div>
 
-      <mat-form-field class="mat-input" appearance="outline">
+      <mat-form-field class="mat-input mat-hint-margin" appearance="outline">
         <mat-label>RFC</mat-label>
-        <input matInput [(ngModel)]="maestro.rfc" placeholder="Escribe RFC" style="text-transform: uppercase;">
+        <input matInput minlength="12" maxlength="13" [(ngModel)]="maestro.rfc" placeholder="Escribe RFC" style="text-transform: uppercase;">
+        <mat-hint align="end">{{maestro.rfc?.length || 0}}/13</mat-hint>
       </mat-form-field>
       <div *ngIf="errors.rfc" class="invalid-feedback">{{ errors.rfc }}</div>
 

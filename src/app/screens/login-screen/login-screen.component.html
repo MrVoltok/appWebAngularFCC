@@ -29,7 +29,7 @@
             <label for="checkbox-signin" class="form-check-label">Olvidé mi contraseña</label>
           </div>
           <div class="d-flex flex-column align-items-center mb-3 w-100">
-            <button type="submit" class="btn btn-primary" (click)="login()">Iniciar sesión</button>
+            <button type="submit" class="btn btn-primary" (click)="login()" [disabled]="load">Iniciar sesión</button>
             <label for="checkbox-signin" class="form-check-label pt-3" (click)="registrar()">Registrarse</label>
           </div>
         </div>

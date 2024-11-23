@@ -10,17 +10,17 @@
       <!-- Aquí empiezan los campos del formulario -->
       <mat-form-field class="mat-input" appearance="outline">
         <mat-label>ID / matricula del alumno</mat-label>
-        <input matInput [(ngModel)]="alumno.id" name="id" placeholder="Escribe id / matricula del alumno">
+        <input matInput [(ngModel)]="alumno.clave_alumno" name="id" placeholder="Escribe id / matricula del alumno">
       </mat-form-field>
-      <div *ngIf="errors.id" class="invalid-feedback">{{ errors.id }}</div>
+      <div *ngIf="errors.id" class="invalid-feedback">{{ errors.clave_alumno }}</div>
       <mat-form-field class="mat-input" appearance="outline">
         <mat-label>Nombre</mat-label>
-        <input matInput [(ngModel)]="alumno.first_name" placeholder="Escribe nombre">
+        <input matInput [(ngModel)]="alumno.first_name" placeholder="Escribe nombre" (keypress)="soloLetras($event)">
       </mat-form-field>
       <div *ngIf="errors.first_name" class="invalid-feedback">{{ errors.first_name }}</div>
       <mat-form-field class="mat-input" appearance="outline">
           <mat-label>Apellidos</mat-label>
-          <input matInput [(ngModel)]="alumno.last_name" placeholder="Escribe apellidos">
+          <input matInput [(ngModel)]="alumno.last_name" placeholder="Escribe apellidos" (keypress)="soloLetras($event)">
       </mat-form-field>
       <div *ngIf="errors.last_name" class="invalid-feedback">{{ errors.last_name }}</div>
       <mat-form-field class="mat-input" appearance="outline">
@@ -43,21 +43,23 @@
 
       <mat-form-field class="mat-input" appearance="outline">
         <mat-label>Fecha de nacimiento</mat-label>
-        <input matInput [(ngModel)]="alumno.birthdate"  [matDatepicker]="picker" placeholder="MM/DD/AAAA">
+        <input matInput [(ngModel)]="alumno.birthdate" (dateChange)="changeFecha($event)" [matDatepicker]="picker" placeholder="MM/DD/AAAA">
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
       <div *ngIf="errors.birthdate" class="invalid-feedback">{{ errors.birthdate }}</div>
       
-      <mat-form-field class="mat-input" appearance="outline">
+      <mat-form-field class="mat-input mat-hint-margin"  appearance="outline">
         <mat-label>CURP</mat-label>
-        <input matInput [(ngModel)]="alumno.curp" placeholder="Escribe CURP" style="text-transform: uppercase;">
+        <input matInput matInput maxlength="18" [(ngModel)]="alumno.curp" placeholder="Escribe CURP" style="text-transform: uppercase;">
+        <mat-hint align="end">{{alumno.curp?.length || 0}}/18</mat-hint>
       </mat-form-field>
       <div *ngIf="errors.curp" class="invalid-feedback">{{ errors.curp }}</div>
 
-      <mat-form-field class="mat-input" appearance="outline">
+      <mat-form-field class="mat-input mat-hint-margin" appearance="outline">
         <mat-label>RFC</mat-label>
-        <input matInput [(ngModel)]="alumno.rfc" placeholder="Escribe RFC" style="text-transform: uppercase;">
+        <input matInput matInput minlength="12" maxlength="13" [(ngModel)]="alumno.rfc" placeholder="Escribe RFC" style="text-transform: uppercase;">
+        <mat-hint align="end">{{alumno.rfc?.length || 0}}/13</mat-hint>
       </mat-form-field>
       <div *ngIf="errors.rfc" class="invalid-feedback">{{ errors.rfc }}</div>
       <mat-form-field class="mat-input" appearance="outline">
@@ -67,7 +69,7 @@
       <div *ngIf="errors.edad" class="invalid-feedback">{{ errors.edad }}</div>
       <mat-form-field class="mat-input" appearance="outline">
         <mat-label>Ocupación</mat-label>
-        <input matInput [(ngModel)]="alumno.ocupacion" placeholder="Escribe la ocupación">
+        <input matInput [(ngModel)]="alumno.ocupacion" placeholder="Escribe la ocupación" (keypress)="soloLetras($event)">
       </mat-form-field>
       <div *ngIf="errors.ocupacion" class="invalid-feedback">{{ errors.ocupacion }}</div>
 
