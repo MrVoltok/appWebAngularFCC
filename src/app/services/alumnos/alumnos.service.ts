@@ -1,22 +1,30 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ErrorsService } from './../tools/errors.service';;
 import { ValidatorService } from './../tools/validator.service';
+import { Observable } from 'rxjs';
+import { environment } from 'src/assets/environments/environment';
+import { FacadeService } from '../facade.service';
 
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+}
 @Injectable({
   providedIn: 'root'
 })
+
 export class AlumnosService {
 
   constructor(
     private http: HttpClient,
     private errorsService: ErrorsService,
     private validatorService: ValidatorService,
+    private facadeService: FacadeService
   ) { }
 
   public esquemaAlumno() {
     return {
-      'id': '',
+      'clave_alumno': '',
       'first_name': '',
       'last_name': '',
       'email': '',
@@ -34,8 +42,8 @@ export class AlumnosService {
   public validarAlumno(data: any, editar: boolean) {
     console.log("Validando alumno... ", data);
     let error: any = [];
-    if (!this.validatorService.required(data["id"])) {
-      error["id"] = this.errorsService.required;
+    if (!this.validatorService.required(data["clave_alumno"])) {
+      error["clave_alumno"] = this.errorsService.required;
     }
     if (!this.validatorService.required(data["first_name"])) {
       error["first_name"] = this.errorsService.required;
@@ -108,5 +116,33 @@ export class AlumnosService {
     }
     //Return arreglo
     return error;
+  }
+
+  public registrarAlumno(data: any): Observable<any> {
+    return this.http.post<any>(`${environment.url_api}/alumno/`, data, httpOptions);
+  }
+
+  public obtenerListaAlumnos(): Observable<any> {
+    var token = this.facadeService.getSessionToken();
+    var headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    return this.http.get<any>(`${environment.url_api}/lista-alumno/`, { headers: headers });
+  }
+
+  public getAlumnoByID(idUser: Number) {
+    return this.http.get<any>(`${environment.url_api}/alumno/?id=${idUser}`, httpOptions);
+  }
+
+  //Servicio para actualizar un usuario
+  public editarAlumno(data: any): Observable<any> {
+    var token = this.facadeService.getSessionToken();
+    var headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    return this.http.put<any>(`${environment.url_api}/alumnos-edit/`, data, { headers: headers });
+  }
+
+  //Eliminar Alumno
+  public eliminarAlumno(idUser: number): Observable<any> {
+    var token = this.facadeService.getSessionToken();
+    var headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    return this.http.delete<any>(`${environment.url_api}/alumnos-edit/?id=${idUser}`, { headers: headers });
   }
 }
