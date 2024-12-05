@@ -7,6 +7,8 @@ import { AdminScreenComponent } from './screens/admin-screen/admin-screen.compon
 import { AlumnosScreenComponent } from './screens/alumnos-screen/alumnos-screen.component';
 import { MaestrosScreenComponent } from './screens/maestros-screen/maestros-screen.component';
 import { GraficasScreenComponent } from './screens/graficas-screen/graficas-screen.component';
+import { RegistroMateriaScreenComponent } from './screens/registro-materia-screen/registro-materia-screen.component';
+import { MateriaScreenComponent } from './screens/materia-screen/materia-screen.component';
 
 const routes: Routes = [
   // Pantalla principal del login
@@ -18,6 +20,9 @@ const routes: Routes = [
   { path: 'maestros', component: MaestrosScreenComponent, pathMatch: 'full' },
   { path: 'administrador', component: AdminScreenComponent, pathMatch: 'full' },
   { path: 'graficas', component: GraficasScreenComponent, pathMatch: 'full' },
+  { path: 'materias/registro', component: RegistroMateriaScreenComponent, pathMatch: 'full' },
+  { path: 'materias/registro/:id', component: RegistroMateriaScreenComponent, pathMatch: 'full' },
+  { path: 'materias', component: MateriaScreenComponent, pathMatch: 'full' },
 ];
 
 @NgModule({

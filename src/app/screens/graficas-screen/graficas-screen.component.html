@@ -22,7 +22,8 @@
           <div class="col-12">
             <div class="row">
               <div class="col-6 graph">
-                <canvas
+                <ng-container *ngIf="doughnutChartData.datasets[0].data[0] !== 0">
+                  <canvas
                   baseChart
                   width="600"
                   height="400"
@@ -30,9 +31,12 @@
                   [data]="lineChartData"
                   [plugins]="lineChartPlugins"
                   [options]="lineChartOption"></canvas>
+                </ng-container>
               </div>
               <div class="col-6 graph">
-                <canvas
+                <ng-container *ngIf="doughnutChartData.datasets[0].data[0] !== 0">
+                  <!-- Gráfico aquí -->
+                  <canvas
                   baseChart
                   width="600"
                   height="400"
@@ -40,6 +44,7 @@
                   [data]="barChartData"
                   [plugins]="barChartPlugins"
                   [options]="barChartOption"></canvas>
+                </ng-container>
               </div>
             </div>
           </div>
@@ -53,7 +58,9 @@
         </div>
         <div class="row w-100 mt-5 mb-5" style="text-align: center;">
           <div class="col-6 graph">
-            <canvas
+            <ng-container *ngIf="doughnutChartData.datasets[0].data[0] !== 0">
+              <!-- Gráfico aquí -->
+              <canvas
               baseChart
               width="600"
               height="400"
@@ -61,9 +68,13 @@
               [data]="pieChartData"
               [plugins]="pieChartPlugins"
               [options]="pieChartOption"></canvas>
+            </ng-container>
+            
           </div>
           <div class="col-6 graph">
-            <canvas
+            <ng-container *ngIf="doughnutChartData.datasets[0].data[0] !== 0">
+              <!-- Gráfico aquí -->
+              <canvas
               baseChart
               width="600"
               height="400"
@@ -71,6 +82,8 @@
               [data]="doughnutChartData"
               [plugins]="doughnutChartPlugins"
               [options]="doughnutChartOption"></canvas>
+            </ng-container>
+            
           </div>
         </div>
       </div>

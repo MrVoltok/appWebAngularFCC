@@ -9,20 +9,21 @@
       </div>
       <!-- Aquí empiezan los campos del formulario -->
       <mat-form-field class="mat-input" appearance="outline">
-        <mat-label>ID del trabajador</mat-label>
-        <input matInput [(ngModel)]="maestro.clave_maestro" name="id" placeholder="Escribe id del trabajador">
+        <mat-label>ID del maestro</mat-label>
+        <input matInput [(ngModel)]="maestro.clave_maestro" mask="0000000000" name="id" placeholder="Escribe id del maestro">
+        <mat-hint align="end">{{maestro.clave_maestro?.length || 0}}/10</mat-hint>
       </mat-form-field>
       <div *ngIf="errors.clave_maestro" class="invalid-feedback">{{ errors.clave_maestro }}</div>
 
       <mat-form-field class="mat-input" appearance="outline">
         <mat-label>Nombre</mat-label>
-        <input matInput [(ngModel)]="maestro.first_name" placeholder="Escribe nombre">
+        <input matInput [(ngModel)]="maestro.first_name" placeholder="Escribe nombre" (keypress)="soloLetras($event)">
       </mat-form-field>
       <div *ngIf="errors.first_name" class="invalid-feedback">{{ errors.first_name }}</div>
 
       <mat-form-field class="mat-input" appearance="outline">
           <mat-label>Apellidos</mat-label>
-          <input matInput [(ngModel)]="maestro.last_name" placeholder="Escribe apellidos">
+          <input matInput [(ngModel)]="maestro.last_name" placeholder="Escribe apellidos" (keypress)="soloLetras($event)">
       </mat-form-field>
       <div *ngIf="errors.last_name" class="invalid-feedback">{{ errors.last_name }}</div>
 
@@ -57,6 +58,7 @@
       <mat-form-field class="mat-input" appearance="outline">
         <mat-label>Teléfono</mat-label>
         <input matInput [(ngModel)]="maestro.telefono" mask='(000) 000-0000' placeholder="Escribe teléfono">
+        <mat-hint align="end">{{maestro.clave_telefono?.length || 0}}/10</mat-hint>
       </mat-form-field>
       <div *ngIf="errors.telefono" class="invalid-feedback">{{ errors.telefono }}</div>
 

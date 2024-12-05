@@ -26,6 +26,9 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
+import { NgxMatDatetimePickerModule, NgxMatNativeDateModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
+// import { ReactiveFormsModule } from '@angular/forms';
+
 //Partials
 import { RegistroAdminComponent } from './partials/registro-admin/registro-admin.component';
 import { RegistroAlumnoComponent } from './partials/registro-alumno/registro-alumno.component';
@@ -40,6 +43,10 @@ import { AlumnosScreenComponent } from './screens/alumnos-screen/alumnos-screen.
 import { MaestrosScreenComponent } from './screens/maestros-screen/maestros-screen.component';
 import { AdminScreenComponent } from './screens/admin-screen/admin-screen.component';
 import { GraficasScreenComponent } from './screens/graficas-screen/graficas-screen.component';
+import { RegistroMateriaScreenComponent } from './screens/registro-materia-screen/registro-materia-screen.component';
+import { RegistroMateriaComponent } from './partials/registro-materia/registro-materia.component';
+import { MateriaScreenComponent } from './screens/materia-screen/materia-screen.component';
+import { EliminarMateriaModalComponent } from './modals/eliminar-materia-modal/eliminar-materia-modal.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +62,10 @@ import { GraficasScreenComponent } from './screens/graficas-screen/graficas-scre
     MaestrosScreenComponent,
     AdminScreenComponent,
     GraficasScreenComponent,
+    RegistroMateriaScreenComponent,
+    RegistroMateriaComponent,
+    MateriaScreenComponent,
+    EliminarMateriaModalComponent
   ],
   imports: [
     BrowserModule,
@@ -76,7 +87,11 @@ import { GraficasScreenComponent } from './screens/graficas-screen/graficas-scre
     MatTableModule,
     MatPaginatorModule,
     MatDialogModule,
-    NgChartsModule
+    NgChartsModule,
+    NgxMatDatetimePickerModule,
+    NgxMatNativeDateModule,
+    NgxMatTimepickerModule,
+    // ReactiveFormsModule
   ],
   providers: [
     provideNgxMask(),

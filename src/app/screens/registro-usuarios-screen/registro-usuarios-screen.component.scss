@@ -35,7 +35,7 @@
 
 .img-slider {
   width: 900px;
-  height: 630px;
+  height: 500px;
   object-fit: cover;
 }
 
@@ -75,4 +75,12 @@
   height: 28px !important;
   cursor: pointer;
   will-change: opacity, transform, border-color, color;
+}
+
+
+mat-radio-group {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  justify-content: center;
 }
