@@ -26,7 +26,7 @@
   justify-content: flex-start;
   align-items: flex-start;
   padding-top: 1.5rem;
-  gap: 1.9rem;
+  gap: 2rem;
 }
 
 .title-user {
@@ -151,4 +151,8 @@ mat-form-field {
 
 .mat-hint-margin {
   margin-bottom: 1rem;
+}
+
+.time-picker {
+  background: #000;
 }

@@ -10,7 +10,8 @@
       <!-- Aquí empiezan los campos del formulario -->
       <mat-form-field class="mat-input" appearance="outline">
         <mat-label>ID / matricula del alumno</mat-label>
-        <input matInput [(ngModel)]="alumno.clave_alumno" name="id" placeholder="Escribe id / matricula del alumno">
+        <input matInput [(ngModel)]="alumno.clave_alumno" mask="0000000000" name="id" placeholder="Escribe id / matricula del alumno">
+        <mat-hint align="end">{{alumno.clave_alumno?.length || 0}}/10</mat-hint>
       </mat-form-field>
       <div *ngIf="errors.id" class="invalid-feedback">{{ errors.clave_alumno }}</div>
       <mat-form-field class="mat-input" appearance="outline">
@@ -76,6 +77,7 @@
       <mat-form-field class="mat-input" appearance="outline">
         <mat-label>Teléfono</mat-label>
         <input matInput [(ngModel)]="alumno.telefono" mask='(000) 000-0000' placeholder="Escribe teléfono">
+        <mat-hint align="end">{{alumno.telefono?.length || 0}}/10</mat-hint>
       </mat-form-field>
       <div *ngIf="errors.telefono" class="invalid-feedback">{{ errors.telefono }}</div>
       <div class="section-buttons">

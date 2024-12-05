@@ -11,6 +11,7 @@ export class ErrorsService {
   public betweenDate: string;
   public email: string;
   public emptyArray: string;
+  public emptyDias: string;
 
   constructor() {
     this.generic = 'Favor de verificar el tipo de dato introducido no es válido';
@@ -19,6 +20,7 @@ export class ErrorsService {
     this.betweenDate = 'Fecha no es válida';
     this.email = 'Favor de introducir un correo con el formato correcto';
     this.emptyArray = 'Seleccione al menos una materia';
+    this.emptyDias = 'Seleccione al menos un día a impartir';
   }
 
   between(min: any, max: any) {
